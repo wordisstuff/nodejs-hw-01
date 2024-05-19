@@ -1,14 +1,12 @@
 import { PATH_DB } from '../constants/contacts.js';
 import { createFakeContact } from '../utils/createFakeContact.js';
 import fs from 'fs/promises';
-import path from 'path';
 
 
 const generateContacts = async (number) => {
-    const file = path.resolve(PATH_DB);
     
     try {
-        const data = await fs.readFile(file, 'utf-8');
+        const data = await fs.readFile(PATH_DB, 'utf-8');
 
         const contacts = JSON.parse(data) || [];
 
@@ -17,7 +15,7 @@ const generateContacts = async (number) => {
         contacts.push(newContact); 
         }
 
-        await fs.writeFile(file, JSON.stringify(contacts, null, 2), 'utf-8');
+        await fs.writeFile(PATH_DB, JSON.stringify(contacts, null, 2), 'utf-8');
         console.log("objects added successfully");
     } catch(error) {
             console.log(error);
